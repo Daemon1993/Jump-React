@@ -1,0 +1,25 @@
+
+$main_bg_color:red;
+$main_pd:10px;
+
+.home_main {
+    background-color: $main_bg_color;
+ 
+    display: flex;
+    flex-direction: column;
+    padding: $main_pd;
+  }
+  
+  .home_tabs {
+    background-color: aqua;
+    display: flex;
+    padding: 10px;
+    width: fit-content;
+    align-self: flex-end;
+  }
+  
+  .home_tab {
+    margin-left: 10px;
+    background-color: $main_bg_color;
+  }
+  

@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import './Home.css'
+// import './Home.s';
+import './Home.scss'
 
 export default class Home extends React.Component {
 

@@ -37,10 +37,11 @@ module.exports = {
             new SimpleProgressWebpackPlugin()
 
         ],
-    },
-    devServer: {
-        port: 5000,
     }
+    // ,
+    // devServer: {
+    //     port: 5000,
+    // }
     // devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => {
     //     // 修改devServer配置
 
