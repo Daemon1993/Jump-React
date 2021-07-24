@@ -1,24 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import { Link, HashRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './features/home/Home';
+import ManageHome from './features/task_manage/ManageHome';
+import SelfU from './features/self_share/SelfU';
+import Tech from './features/task_tech/Tech';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div id="menu">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/tech" exact component={Tech} />
+          <Route path="/self_u" exact component={SelfU} />
+          <Route path="/manage" component={ManageHome} />
+
+        </Switch>
+      </div>
+    </Router >
   );
 }
 
