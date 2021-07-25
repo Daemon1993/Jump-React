@@ -7,6 +7,9 @@ import './manage.scss';
 import './markdown10.scss';
 
 
+import hljs from "highlight.js";
+import 'highlight.js/styles/atom-one-dark.css';
+
 
 var marked = require('marked');
 marked.setOptions({
@@ -18,6 +21,21 @@ marked.setOptions({
     sanitize: false,
     smartLists: true,
     smartypants: false,
+    highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+            try {
+                return hljs.highlight(lang, str).value;
+            } catch (__) {
+            }
+        }
+
+        try {
+            return hljs.highlightAuto(str).value;
+        } catch (__) {
+        }
+
+        return ''; // use e
+    }
 });
 
 export default class ManageHome extends React.Component {
@@ -36,17 +54,17 @@ export default class ManageHome extends React.Component {
 
         return (
             <div className="main">
-                <h1>Jump 编辑文章</h1>
+                <div className="top">
+                    <h1>Jump 编辑文章</h1>
+                </div>
                 <div className="content">
-
                     <textarea
                         ref={(ref) => { this.left_input = ref }}
                         onScroll={this.leftTRScorll}
                         className="left_input" value={this.state.textareaValue} onChange={this.handleTextareaChange} />
 
-
-                    <div ref={(ref) => { this.right_show = ref }} className="right_show" dangerouslySetInnerHTML={{ __html: result }}></div>
-
+                    <div ref={(ref) => { this.right_show = ref }} className="right_show" dangerouslySetInnerHTML={{ __html: result }} >
+                    </div>
                 </div>
             </div>
 
@@ -60,7 +78,7 @@ export default class ManageHome extends React.Component {
 
     leftTRScorll = (event) => {
 
-    
+
 
         if (event.target.scrollHeight - event.target.clientHeight == event.target.scrollTop) {
             console.log('底部');
