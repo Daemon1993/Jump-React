@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import './manage.scss';
+import styles from './manage.scss';
 import './markdown10.scss';
 
 
@@ -58,30 +58,24 @@ export default class ManageHome extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-
-    
-     
-    }
-
+ 
     render() {
         var result = marked(this.state.textareaValue); // result is a String
         return (
-            <div className="main">
-                <div className="top">
+            <div className={styles.main}>
+                <div className={styles.top}>
                     <h1>Jump 编辑文章</h1>
                 </div>
-                <div className="content">
+                <div className={styles.content}>
                     <textarea
                         ref={(ref) => { this.left_input = ref }}
                         onScroll={this.leftTRScorll}
                         onDrop={this.drop}
                         onDragOver={(event) => event.preventDefault()}
                         onPasteCapture={this.pasteFileAction}
-                        className="left_input" value={this.state.textareaValue} onChange={this.handleTextareaChange} />
+                        className={styles.left_input} value={this.state.textareaValue} onChange={this.handleTextareaChange} />
 
-                    <div ref={(ref) => { this.right_show = ref }} className="right_show" dangerouslySetInnerHTML={{ __html: result }} >
+                    <div ref={(ref) => { this.right_show = ref }} className={styles.right_show} dangerouslySetInnerHTML={{ __html: result }} >
                     </div>
                 </div>
             </div>

@@ -4,7 +4,9 @@ import { Input, Button, Dropdown } from 'antd';
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
-import './login.scss';
+import styles from './login.scss';
+
+ 
 import { connect } from "react-redux";
 import Bmob from "hydrogen-js-sdk";
 
@@ -50,21 +52,21 @@ class Login extends React.Component {
     }
     render() {
         return (
-            <div className="main">
-                <div className="top_tag">Login {this.props.user.username}</div>
-                <div className="login_main">
+            <div className={styles.main}>
+                <div className={styles.top_tag}>Login {this.props.user.username}</div>
+                <div className={styles.login_main}>
                     <Input value={this.state.username} onChange={this.usernameInput} size="large" placeholder="username" prefix={<UserOutlined />} />
 
                     <Input.Password
                         onChange={this.pwdInput}
                         value={this.state.pwd}
-                        className="pwd"
+                        className={styles.pwd}
                         size="large"
                         placeholder="password"
                         iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
 
-                    <Button onClick={this.login2Server} className="bt_sub" type="primary">登录</Button>
+                    <Button onClick={this.login2Server} className={styles.bt_sub} type="primary">登录</Button>
                 </div>
 
             </div>
@@ -129,4 +131,4 @@ function mapState2Props(state) {
 
 const LoginConnect = connect(mapState2Props)(Login)
 
-export default LoginConnect
+export default  LoginConnect
