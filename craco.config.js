@@ -10,6 +10,7 @@ module.exports = {
 
     style: {
         //修改样式配置
+         
     },
     eslint: {
         // 修改eslint配置，同.eslintrc
@@ -38,10 +39,11 @@ module.exports = {
 
         ],
     }
-    // ,
-    // devServer: {
-    //     port: 5000,
-    // }
+    ,
+    devServer: {
+          
+    }
+
     // devServer: (devServerConfig, { env, paths, proxy, allowedHost }) => {
     //     // 修改devServer配置
 

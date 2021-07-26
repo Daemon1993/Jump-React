@@ -4,18 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { createStore } from 'redux';
+ 
 import store from './features/store';
 import { Provider } from 'react-redux';
 
-
-let store1 = createStore(store)
-
-
-
+ 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store1}>
+    <Provider store={store}>
       <App />
     </Provider>
 

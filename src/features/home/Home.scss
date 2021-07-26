@@ -3,7 +3,7 @@ $main_bg_color:red;
 $main_pd:10px;
 
 .home_main {
-    background-color: $main_bg_color;
+    
  
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@ $main_pd:10px;
   }
   
   .home_tabs {
-    background-color: aqua;
+   
     display: flex;
     padding: 10px;
     width: fit-content;
