@@ -13,6 +13,7 @@ import Bmob from "hydrogen-js-sdk";
 import CryptoJS from "crypto-js";
 
 import { actionLoginUser } from './login_reducer';
+ 
 
 
 let reset_k = "NDUxOTkzMTkzNw==";
@@ -29,6 +30,7 @@ class Login extends React.Component {
             username: '',
             pwd: ""
         }
+        
     }
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -53,7 +55,7 @@ class Login extends React.Component {
     render() {
         return (
             <div className={styles.main}>
-                <div className={styles.top_tag}>Login {this.props.user.username}</div>
+                <div className={styles.top_tag}>Login {this.props.user.login}</div>
                 <div className={styles.login_main}>
                     <Input value={this.state.username} onChange={this.usernameInput} size="large" placeholder="username" prefix={<UserOutlined />} />
 
@@ -130,5 +132,6 @@ function mapState2Props(state) {
 }
 
 const LoginConnect = connect(mapState2Props)(Login)
+ 
 
 export default  LoginConnect

@@ -1,54 +1,36 @@
+
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { actionLoginUser, TAG_LoginUser } from "../task_manage/login/login_reducer";
+
 
 // import './Home.s';
 import styles from './Home.scss'
 
 
- class Home extends React.Component {
+class Home extends React.Component {
 
-    componentDidMount() {
-        console.log("componentDidMount")
-        // //监听获取 user 设置 store
-        // window.addEventListener("storage", e => {
-        //     console.log(e)
-        //     if (e.key === 'tag_login_user') {
-        //         let res = JSON.parse(e.newValue);
-        //         console.log(res)
-        //         let user = {
-        //             ...res,
-        //             login: 1
-        //         }
-        //         console.log(user)
-        //         this.props.dispatch(actionLoginUser(user))
-        //         //当前 login_reducer 设置值 之后 清除localstorage
-        //         localStorage.removeItem(TAG_LoginUser)
-        //     }
-        // });
-
-    }
     render() {
+
         return (
             <div className={styles.home_main}>
-                <h1 onClick={this.go2Home}>Home</h1>
 
-                <div className={styles.home_tabs}>
-                    <Link to="/tech" className={styles.home_tab}>技术文章</Link>
-                    <Link to="/self_u" className={styles.home_tab}>个人分享</Link>
-                    <Link to="/manage"  className={styles.home_tab}>管理后台</Link>
-                </div>
+               <h1>Home</h1>
 
             </div>
         )
     }
 
-    go2Home = () => {
-        // console.log(this.props.history)
-        this.props.history.replace("/");
+
+}
+
+function mapState2Props(state) {
+    console.log("mapState2Props ")
+    console.log(state.base_reducer)
+    return {
+        tab_hidden: state.base_reducer.tab_hidden,
+        home0_show: state.base_reducer.home0_show,
     }
 }
 
-const HomeConnect=connect()(Home)
+const HomeConnect = connect(mapState2Props)(Home)
 export default HomeConnect

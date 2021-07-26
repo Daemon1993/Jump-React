@@ -1,25 +1,16 @@
-
-$main_bg_color:red;
-$main_pd:10px;
+$main_bg_color: red;
+$main_pd: 10px;
 
 .home_main {
-    
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: $main_pd;
+  height: 100%;
  
-    display: flex;
-    flex-direction: column;
-    padding: $main_pd;
+
+  .home_content {
+    background-color:rosybrown;
+    flex: 1;
   }
-  
-  .home_tabs {
-   
-    display: flex;
-    padding: 10px;
-    width: fit-content;
-    align-self: flex-end;
-  }
-  
-  .home_tab {
-    margin-left: 10px;
-    background-color: $main_bg_color;
-  }
-  
+}
