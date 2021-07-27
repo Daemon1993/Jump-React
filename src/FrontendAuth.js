@@ -28,7 +28,7 @@ export default class FrontendAuth extends React.Component {
         let user = store.getState().login_reducer.login_user;
         // console.log(user)
         if(!BaseUtils.isEmpty(user)){
-            isLogin = user.login == 1;
+            isLogin = user.login === 1;
         }
         console.log("islogin " + isLogin)
         if (isLogin) {

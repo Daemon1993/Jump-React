@@ -8,7 +8,7 @@ import styles from './basetab.scss';
     render() {
         const {location: {pathname}} = this.props;
         console.log(pathname)
-        if(pathname=='/login' || pathname=='/manage'){
+        if(pathname==='/login' || pathname==='/manage'){
             return null;
         }
         return (

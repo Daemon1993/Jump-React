@@ -28,7 +28,6 @@ function mapState2Props(state) {
     console.log(state.base_reducer)
     return {
         tab_hidden: state.base_reducer.tab_hidden,
-        home0_show: state.base_reducer.home0_show,
     }
 }
 

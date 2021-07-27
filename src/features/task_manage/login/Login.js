@@ -13,11 +13,8 @@ import Bmob from "hydrogen-js-sdk";
 import CryptoJS from "crypto-js";
 
 import { actionLoginUser } from './login_reducer';
+import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
  
-
-
-let reset_k = "NDUxOTkzMTkzNw==";
-
 
 class Login extends React.Component {
 
@@ -43,13 +40,8 @@ class Login extends React.Component {
     // }
 
     componentDidMount() {
-        console.log(this.props)
-        // 初始化 SDK版本 2.0.0 以下保留之前的初始化方法
-
-        let reset_k1 = CryptoJS.enc.Base64.parse(reset_k).toString(CryptoJS.enc.Utf8);
-        reset_k1 = reset_k1.substring(2, reset_k1.length - 2)
-
-        Bmob.initialize("c5bfe65ab37d31cd", reset_k1);
+        console.log(this.props);
+        ServerNetWorkUtils.initBmob()
 
     }
     render() {
