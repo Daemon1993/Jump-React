@@ -7,13 +7,23 @@ export default function showUnderLine4Comp(Comp) {
             show_line: false
         }
         render() {
+            console.log(this.props.select_state)
             return (
                 <div onMouseEnter={this.showLine} onMouseLeave={this.hiddenLine} className={styles.line_main}>
                     <Comp />
-                    {this.state.show_line ? <div className={styles.line} /> : null}
+                    {this.getUnderLine()}
                 </div>
             )
         }
+        getUnderLine = () => {
+
+            if (this.props.select_state) {
+                return <div className={styles.line} />
+            }
+            return this.state.show_line ? <div className={styles.line} /> : null
+
+        }
+
         showLine = () => {
             this.setState({
                 show_line: true

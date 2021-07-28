@@ -14,13 +14,50 @@ export default class ServerNetWorkUtils {
         Bmob.initialize("c5bfe65ab37d31cd", reset_k1);
     }
 
-    static pushArticle(requestBody){
+
+    /**
+     * 获取文章通过id
+     * @param {*} id 
+     * @returns 
+     */
+    static getArticleByArticleId(id) {
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
-            types_sql.set("title",requestBody.title)
-            types_sql.set("content",requestBody.content)
-            types_sql.set("type_id",requestBody.type_id)
-            types_sql.set("tags",requestBody.tags)
+            types_sql.get(id).then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+    /**
+     * 获取所有文章
+     */
+    static getAllTitlesArticles(type_id) {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Article);
+            types_sql.equalTo("type_id", "==", type_id);
+            types_sql.select("title");
+            types_sql.find().then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+    /**
+     * 发布文章
+     * @param {*} requestBody 
+     * @returns 
+     */
+    static pushArticle(requestBody) {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Article);
+            types_sql.set("title", requestBody.title)
+            types_sql.set("content", requestBody.content)
+            types_sql.set("type_id", requestBody.type_id)
+            types_sql.set("tags", requestBody.tags)
             types_sql.save().then(res => {
                 resolve(res)
             }).catch(error => {
@@ -37,7 +74,7 @@ export default class ServerNetWorkUtils {
     static addTypeDir(name) {
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Types);
-            types_sql.set("name",name)
+            types_sql.set("name", name)
             types_sql.save().then(res => {
                 resolve(res)
             }).catch(error => {

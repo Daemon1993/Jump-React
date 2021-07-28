@@ -1,3 +1,4 @@
+import ContentShow from "@/compoent_d/ContentShow/ContentShow";
 import React from "react";
 
 
@@ -5,7 +6,7 @@ export default class SelfU extends React.Component{
 
     render(){
         return(
-            <h1>SelfU</h1>
+            <ContentShow type_id="8d6db46760" />
         )
     }
 }

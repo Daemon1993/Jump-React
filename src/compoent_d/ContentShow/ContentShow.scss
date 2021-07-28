@@ -1,0 +1,31 @@
+
+.main{
+    display: flex;
+    flex-direction: row;
+ 
+    height: 100%;
+    .left_main{
+        width: 20%;
+        box-sizing: border-box;
+        
+        height: 100%;
+        padding: 2rem;
+        .title_sy{
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    }
+
+    .right_main{
+        flex: 1;
+        height: 100%;
+        background-color: burlywood;
+        box-sizing: border-box;
+        padding: 5rem;
+        background-color: seashell;
+        overflow: scroll;
+         
+    }
+}
