@@ -64,13 +64,13 @@ export default class ManageHome extends React.Component {
             return <TypeManage />
         }
         if (this.state.show_id === 2) {
-            return <PushArticle />
+            return <PushArticle callback_tab_select={this.clickItem} />
         }
 
         return <TypeManage />
     }
 
 
-
+    callback_tab_select
 
 }

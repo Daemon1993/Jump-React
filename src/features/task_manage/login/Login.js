@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Input, Button, Dropdown } from 'antd';
+import { Input, Button } from 'antd';
 import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import styles from './login.scss';
 
- 
+
 import { connect } from "react-redux";
 import Bmob from "hydrogen-js-sdk";
 
@@ -14,7 +14,9 @@ import CryptoJS from "crypto-js";
 
 import { actionLoginUser } from './login_reducer';
 import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
- 
+import LoadingBase from "@/compoent_d/LoadingBase/LoadingBase";
+
+
 
 class Login extends React.Component {
 
@@ -25,9 +27,10 @@ class Login extends React.Component {
 
         this.state = {
             username: '',
-            pwd: ""
+            pwd: "",
+            loading: false,
         }
-        
+
     }
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -63,6 +66,7 @@ class Login extends React.Component {
                     <Button onClick={this.login2Server} className={styles.bt_sub} type="primary">登录</Button>
                 </div>
 
+                <LoadingBase spinning={this.state.loading} />
             </div>
         )
     }
@@ -70,11 +74,20 @@ class Login extends React.Component {
     login2Server = () => {
         console.log(this.state)
 
+        this.setState({
+            loading: true
+        })
+
         let username = this.state.username;
         let pwd = CryptoJS.MD5(this.state.pwd).toString();
 
         // 项目其他页面使用跟小程序一样使用Bmob对象即可，例如：
         Bmob.User.login(username, pwd).then(res => {
+
+            this.setState({
+                loading: false
+            })
+
             console.log(res)
             let secret0 = res.secret0;
             let secret1 = res.sercert1;
@@ -100,6 +113,9 @@ class Login extends React.Component {
             this.props.history.replace("/manage");
 
         }).catch(err => {
+            this.setState({
+                loading: false
+            })
             console.log(err)
         });
     }
@@ -124,6 +140,6 @@ function mapState2Props(state) {
 }
 
 const LoginConnect = connect(mapState2Props)(Login)
- 
 
-export default  LoginConnect
+
+export default LoginConnect

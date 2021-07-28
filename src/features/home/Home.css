@@ -3,17 +3,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+   
+  background-color: red;
+  
 }
 
-.home_tabs {
-  background-color: aqua;
-  display: flex;
-  padding: 10px;
-  width: fit-content;
-  align-self: flex-end;
-}
-
-.home_tab {
-  margin-left: 10px;
-}
+ 

@@ -11,7 +11,7 @@ function App() {
   return (
     <div className={styles.main}>
       <Router>
-        <BaseTab />
+      <BaseTab />
 
         <Switch>
 

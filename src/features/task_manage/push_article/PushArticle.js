@@ -8,9 +8,16 @@ import CryptoJS from "crypto-js";
 import hljs from "highlight.js";
 import 'highlight.js/styles/atom-one-dark.css';
 import axios from "axios";
+import { Button, message } from "antd";
+
+import 'antd/dist/antd.css';
+import PushDialog from "./PushDialog";
+import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
+
 const headers = {
     'Content-Type': 'multipart/form-data;charset=UTF-8'
 }
+
 
 let ttt = '';
 
@@ -48,32 +55,93 @@ export default class PushArticle extends React.Component {
         console.log("ManageHome")
         super(props)
         this.state = {
-            textareaValue: ""
+            textareaValue: "",
+            push_dialog_visible:false,
+            title:""
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log("PushArticle componentDidMount")
     }
 
     render() {
-        var result = marked(this.state.textareaValue); // result is a String
+         let title = marked('# ' + this.state.title);
+        let result = marked(this.state.textareaValue);
 
         return (
-            <div className={styles.content}>
-                <textarea
-                    ref={(ref) => { this.left_input = ref }}
-                    onScroll={this.leftTRScorll}
-                    onDrop={this.drop}
-                    onDragOver={(event) => event.preventDefault()}
-                    onPasteCapture={this.pasteFileAction}
-                    className={styles.left_input} value={this.state.textareaValue} onChange={this.handleTextareaChange} />
-
-                <div ref={(ref) => { this.right_show = ref }} className={styles.right_show} dangerouslySetInnerHTML={{ __html: result }} >
+            <div className={styles.main}>
+                <div className={styles.top_main}>
+                    <input value={this.state.title} onChange={this.onChangeTitle} placeholder="请输入标题" className={styles.input_title} />
+                    <Button onClick={this.pushArticle} >发布</Button>
                 </div>
+
+                <div className={styles.content}>
+                    <textarea
+                        ref={(ref) => { this.left_input = ref }}
+                        onScroll={this.leftTRScorll}
+                        onDrop={this.drop}
+                        onDragOver={(event) => event.preventDefault()}
+                        onPasteCapture={this.pasteFileAction}
+                        className={styles.left_input} value={this.state.textareaValue} onChange={this.handleTextareaChange} />
+
+                    <div ref={(ref) => { this.right_show = ref }} className={styles.right_show} dangerouslySetInnerHTML={{ __html: title+result }} >
+                    </div>
+                </div>
+
+                <PushDialog  visible={this.state.push_dialog_visible} onOk={this.handleOk} onCancel={this.handleCancel} />
             </div>
+
         )
     }
 
+    handleOk = (result) => {
+        console.log(result)
+        this.setState({
+            push_dialog_visible:false
+        })
+    
+        
+        console.log("真正开始上传文章")
+        let requestBody={
+            title:this.state.title,
+            tags:result.tags.join(","),
+            type_id:result.type_id,
+            content:this.state.textareaValue
+        }
+        console.log(requestBody)
+        ServerNetWorkUtils.pushArticle(requestBody)
+        .then(res=>{
+            console.log(res)
+            if(res.objectId){
+                message.success('发布成功...',1).then(()=>{
+                    console.log(this)
+                    //通知父组件 切换到文章管理
+                    this.props.callback_tab_select(1)
+                });
+            }
+        }).catch(error=>{
+            message.error("上传失败 稍后再试");
+        })
+    };
+
+    handleCancel = () => {
+        this.setState({
+            push_dialog_visible:false
+        })
+    };
+
+    pushArticle = () => {
+        console.log("发布文章 弹出确认信息")
+        this.setState({
+            push_dialog_visible:true
+        })
+    }
+
+    onChangeTitle=(evt)=>{
+        this.setState({
+            title:evt.target.value
+        })
+    }
 
     /**
      * 拖拽图片上传
