@@ -13,13 +13,16 @@ import { Button, message } from "antd";
 import 'antd/dist/antd.css';
 import PushDialog from "./PushDialog";
 import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
+import store from "@/features/store";
 
 const headers = {
     'Content-Type': 'multipart/form-data;charset=UTF-8'
 }
 
+let ttt=store.getState().login_reducer.login_user.ttt;
+ 
 
-let ttt = '';
+ 
 
 
 var marked = require('marked');
@@ -205,6 +208,7 @@ export default class PushArticle extends React.Component {
      */
     postImage2Server = (file) => {
         console.log("postImage2Server")
+      
         let id = 8192;
         let ts = Date.parse(new Date()) / 1000;
         let key = id + '-' + ttt + '-' + ts
