@@ -1,16 +1,40 @@
-.main{
+.main {
   box-sizing: border-box;
   margin: 0.5rem;
   display: flex;
   flex-direction: column;
-  .home_tabs {
+  
+
+  .content_main {
+    margin: 1rem;
+   
+    flex-direction: row;
     display: flex;
-    padding: 10px;
-    width: fit-content;
-    align-self: flex-end;
-    .home_tab {
-      margin-left: 10px;
-      text-decoration: none;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      margin-left: 5rem;
+      cursor: pointer;
+    }
+    .home_tabs {
+      margin-right: 5rem;
+      display: flex;
+      padding: 10px;
+      width: fit-content;
+
+      .home_tab {
+         
+        text-decoration: none;
+        color: rgb(66, 66, 71);
+      }
     }
   }
 }
+.line_0{
+  height: 1px;
+  width: 100%;
+  background-color: rgb(219, 221, 220);
+}
+
+

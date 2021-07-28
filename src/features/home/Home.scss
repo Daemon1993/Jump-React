@@ -6,6 +6,18 @@ $main_pd: 10px;
   display: flex;
   flex-direction: column;
   padding: $main_pd;
+  align-items: center;
   height: 100%;
+  .logo_{
+    width: 18rem;
+    height: 18rem;
+    border-radius:50%;
+    
+  }
+  .msg{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: rgb(112, 116, 112);
+  }
   
 }

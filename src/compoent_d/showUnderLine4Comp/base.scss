@@ -1,0 +1,11 @@
+.line_main {
+  display: flex;
+  flex-direction: column;
+  height: 3rem;
+  margin-left: 2rem;
+  justify-content: center;
+}
+.line {
+  height: 2px;
+  background-color: rgb(76, 102, 87);
+}

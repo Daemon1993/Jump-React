@@ -1,4 +1,5 @@
 
+import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
 import React from "react";
 import { connect } from "react-redux";
 
@@ -9,13 +10,18 @@ import styles from './Home.scss'
 
 class Home extends React.Component {
 
+    componentDidMount(){
+        ServerNetWorkUtils.initBmob()
+    }
+    
     render() {
 
         return (
             <div className={styles.home_main}>
 
-               <h1>Home</h1>
+                <img className={styles.logo_} src={'jump_logo.png'} />
 
+                <div className={styles.msg}>勿妄自菲薄，勿自夸自傲</div>
             </div>
         )
     }
