@@ -1,40 +1,61 @@
+@import "../base.scss";
+
 .main {
   box-sizing: border-box;
-  margin: 0.5rem;
+
   display: flex;
   flex-direction: column;
-  
 
   .content_main {
     margin: 1rem;
-   
+
     flex-direction: row;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     .title {
-      margin-left: 5rem;
+      margin-left: 1vw;
       cursor: pointer;
     }
     .home_tabs {
-      margin-right: 5rem;
+      margin-right: 5vw;
       display: flex;
       padding: 10px;
+ 
+      align-items: center;
       width: fit-content;
 
       .home_tab {
+        text-align: center;
+
+        overflow: hidden;
+        white-space: nowrap;
          
+        text-overflow: ellipsis;
+
         text-decoration: none;
         color: rgb(66, 66, 71);
+      }
+      .p_a_main {
+        text-align: center;
+        margin-left: 2rem;
+        height: 100%;
+     
+        .home_tab_a {
+         font-weight: 600;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          text-decoration: none;
+          color: rgb(66, 66, 71);
+        }
       }
     }
   }
 }
-.line_0{
+.line_0 {
   height: 1px;
   width: 100%;
-  background-color: rgb(219, 221, 220);
+  background-color: $base_line_color;
 }
-
-

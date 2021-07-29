@@ -11,6 +11,7 @@ const Tech = showUnderLine4Comp(() => <Link to="/tech" className={styles.home_ta
 const SelfU = showUnderLine4Comp(() => <Link to="/self_u" className={styles.home_tab}>一点杂谈</Link>)
 const Manage = showUnderLine4Comp(() => <Link to="/manage" target="_blank" className={styles.home_tab}>管理后台</Link>)
 
+
 class BaseTab extends React.Component {
 
     state = {
@@ -32,6 +33,7 @@ class BaseTab extends React.Component {
                         <SelfU select_state={pathname == '/self_u'} />
                         <Manage />
 
+                        <div className={styles.p_a_main}><a className={styles.home_tab_a}>Github</a></div>
 
                     </div>
                 </div>

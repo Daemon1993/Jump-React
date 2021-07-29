@@ -19,10 +19,10 @@ const headers = {
     'Content-Type': 'multipart/form-data;charset=UTF-8'
 }
 
-let ttt=store.getState().login_reducer.login_user.ttt;
- 
+let ttt = store.getState().login_reducer.login_user.ttt;
 
- 
+
+
 
 
 var marked = require('marked');
@@ -52,6 +52,7 @@ marked.setOptions({
     }
 });
 
+let mkRenderTimer
 export default class PushArticle extends React.Component {
 
     constructor(props) {
@@ -59,8 +60,9 @@ export default class PushArticle extends React.Component {
         super(props)
         this.state = {
             textareaValue: "",
-            push_dialog_visible:false,
-            title:""
+            push_dialog_visible: false,
+            title: "",
+            _html_str: "",
         }
     }
     componentDidMount() {
@@ -68,8 +70,7 @@ export default class PushArticle extends React.Component {
     }
 
     render() {
-         let title = marked('# ' + this.state.title);
-        let result = marked(this.state.textareaValue);
+        let title = marked('# ' + this.state.title);
 
         return (
             <div className={styles.main}>
@@ -87,62 +88,86 @@ export default class PushArticle extends React.Component {
                         onPasteCapture={this.pasteFileAction}
                         className={styles.left_input} value={this.state.textareaValue} onChange={this.handleTextareaChange} />
 
-                    <div ref={(ref) => { this.right_show = ref }} className={styles.right_show} dangerouslySetInnerHTML={{ __html: title+result }} >
+                    <div ref={(ref) => { this.right_show = ref }} className={styles.right_show}
+                        dangerouslySetInnerHTML={{ __html: title + this.state._html_str }} >
                     </div>
                 </div>
 
-                <PushDialog  visible={this.state.push_dialog_visible} onOk={this.handleOk} onCancel={this.handleCancel} />
+                <PushDialog visible={this.state.push_dialog_visible} onOk={this.handleOk} onCancel={this.handleCancel} />
             </div>
 
         )
     }
 
+    updateInputValue = (input_value) => {
+        this.setState({
+            textareaValue: input_value
+        })
+
+        if (mkRenderTimer) clearTimeout(mkRenderTimer);
+        mkRenderTimer = setTimeout(() => {
+
+            this.setState({
+                _html_str: marked(this.state.textareaValue)
+            })
+
+            clearTimeout(mkRenderTimer)
+        }, 500)
+    }
+    handleTextareaChange = (evt) => {
+
+
+        this.updateInputValue(evt.target.value)
+
+
+    }
+
     handleOk = (result) => {
         console.log(result)
         this.setState({
-            push_dialog_visible:false
+            push_dialog_visible: false
         })
-    
-        
+
+
         console.log("真正开始上传文章")
-        let requestBody={
-            title:this.state.title,
-            tags:result.tags.join(","),
-            type_id:result.type_id,
-            content:this.state.textareaValue
+        let requestBody = {
+            title: this.state.title,
+            tags: result.tags.join(","),
+            type_id: result.type_id,
+            content: this.state.textareaValue
         }
         console.log(requestBody)
         ServerNetWorkUtils.pushArticle(requestBody)
-        .then(res=>{
-            console.log(res)
-            if(res.objectId){
-                message.success('发布成功...',1).then(()=>{
-                    console.log(this)
-                    //通知父组件 切换到文章管理
-                    this.props.callback_tab_select(1)
-                });
-            }
-        }).catch(error=>{
-            message.error("上传失败 稍后再试");
-        })
+            .then(res => {
+                console.log(res)
+                if (res.objectId) {
+                    message.success('发布成功...', 1).then(() => {
+                        console.log(this)
+                        //通知父组件 切换到文章管理
+                        this.props.callback_tab_select(1)
+                    });
+                }
+            }).catch(error => {
+                message.error("上传失败 稍后再试");
+            })
     };
 
     handleCancel = () => {
         this.setState({
-            push_dialog_visible:false
+            push_dialog_visible: false
         })
     };
 
     pushArticle = () => {
         console.log("发布文章 弹出确认信息")
         this.setState({
-            push_dialog_visible:true
+            push_dialog_visible: true
         })
     }
 
-    onChangeTitle=(evt)=>{
+    onChangeTitle = (evt) => {
         this.setState({
-            title:evt.target.value
+            title: evt.target.value
         })
     }
 
@@ -208,7 +233,7 @@ export default class PushArticle extends React.Component {
      */
     postImage2Server = (file) => {
         console.log("postImage2Server")
-      
+
         let id = 8192;
         let ts = Date.parse(new Date()) / 1000;
         let key = id + '-' + ttt + '-' + ts
@@ -238,9 +263,8 @@ export default class PushArticle extends React.Component {
             this.insert2TextEditer(this.left_input, img);
 
 
-            this.setState({
-                textareaValue: this.left_input.value,
-            });
+            this.updateInputValue(this.left_input.value)
+
 
         }).catch(error => {
             console.log(error)
@@ -265,14 +289,9 @@ export default class PushArticle extends React.Component {
             obj.value += img;
         }
 
-
     }
 
-    handleTextareaChange = (evt) => {
-        this.setState({
-            textareaValue: evt.target.value
-        })
-    }
+
 
     leftTRScorll = (event) => {
 

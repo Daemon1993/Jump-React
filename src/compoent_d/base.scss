@@ -1,0 +1,15 @@
+$base_color:hsl(153, 48%, 46%);
+
+$base_line_color:rgb(219, 221, 220);
+
+.h_line{
+    width: 100%;
+    height: 1px;
+    background-color:$base_line_color;
+}
+
+.v_line{
+    width: 1px;
+    height: 100%;
+    background-color:$base_line_color;
+}

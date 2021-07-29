@@ -41,55 +41,65 @@ export default class ContentShow extends React.Component {
     state = {
         data_titles: [],
         textareaValue: "",
+        select_title_id: '',
     }
     componentDidMount() {
         ServerNetWorkUtils.initBmob();
+        console.log("--this.props.type_id "+this.props.type_id)
         ServerNetWorkUtils.getAllTitlesArticles(this.props.type_id)
             .then(res => {
+            
                 this.setState({
                     data_titles: res
                 })
 
-                if(res.length>0){
+                if (res.length > 0) {
                     this.clickTitle(res[0].objectId)
                 }
             }).catch(error => {
                 console.log(error)
             })
     }
-    clickTitle = ( objectId) => {
+    clickTitle = (objectId) => {
         console.log(objectId)
-
-
+        this.setState({
+            select_title_id: objectId
+        })
         ServerNetWorkUtils.getArticleByArticleId(objectId)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 this.setState({
-                    textareaValue: res.content
+                    textareaValue: res.content,
+                    title:res.title,
                 })
             }).catch(error => {
                 console.log(error)
             })
-
+    }
+    isSelectTitle(objectId) {
+        return this.state.select_title_id == objectId ? styles.title_select : "";
     }
 
     render() {
         let result = marked(this.state.textareaValue);
         return (
-
-
             <div className={styles.main}>
                 <div className={styles.left_main}>
                     {this.state.data_titles.map(data => {
+                     
                         return (
-                            <div onClick={(evt) => this.clickTitle(data.objectId)} className={styles.title_sy} key={data.objectId}>{data.title}</div>
+                            <div onClick={() => this.clickTitle(data.objectId)}
+                                className={styles.title_sy + " " + this.isSelectTitle(data.objectId)} key={data.objectId}>{data.title}</div>
                         )
                     })}
                 </div>
-                <div className={styles.right_main} dangerouslySetInnerHTML={{ __html: result }}>
 
+                <div className={styles.v_line} />
+                <div className={styles.right_main} >
+                    <div className={styles.title}>{this.state.title}</div>
+                    <div dangerouslySetInnerHTML={{ __html: result }} />
                 </div>
-            </div>
+            </div >
         )
     }
 }
