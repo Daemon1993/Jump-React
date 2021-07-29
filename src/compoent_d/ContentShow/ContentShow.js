@@ -8,6 +8,7 @@ import hljs from "highlight.js";
 import 'highlight.js/styles/atom-one-dark.css';
 import './markdown10.scss';
 
+import { PreviewApi } from '@zzwing/react-image'
 
 var marked = require('marked');
 marked.setOptions({
@@ -40,15 +41,19 @@ export default class ContentShow extends React.Component {
 
     state = {
         data_titles: [],
-        textareaValue: "",
+        html_show: "",
         select_title_id: '',
+        img_url: '',
+
+    }
+    componentWillUnmount() {
+        document.body.removeEventListener('click', this.addClickImg)
     }
     componentDidMount() {
         ServerNetWorkUtils.initBmob();
-        console.log("--this.props.type_id "+this.props.type_id)
+        console.log("--this.props.type_id " + this.props.type_id)
         ServerNetWorkUtils.getAllTitlesArticles(this.props.type_id)
             .then(res => {
-            
                 this.setState({
                     data_titles: res
                 })
@@ -59,7 +64,42 @@ export default class ContentShow extends React.Component {
             }).catch(error => {
                 console.log(error)
             })
+
+        document.body.addEventListener('click', this.addClickImg);
+
     }
+
+    addClickImg = (e) => {
+
+        // 判断是否点击的图片
+        if (e.path[0].nodeName === 'IMG') {
+            let params = {};
+            params.param = {};
+            // 获取imglist
+            var oPics = document.getElementsByTagName("img");
+            params.param.imageArray = [];
+            for (let i = 0; i < oPics.length; i++) {
+                params.param.imageArray.push({ url: oPics[i].src });
+            }
+            for (let i = 0; i < oPics.length; i++) {
+                // 判断点击图片的index
+                if (e.path[0].src === params.param.imageArray[i].url) {
+                    params.param.index = i;
+                    break
+                }
+            }
+            let img_url = params.param.imageArray[params.param.index].url
+            console.log(img_url);
+            this.setState({
+                img_url: img_url,
+                visible: true,
+            })
+
+            PreviewApi.preview(img_url)
+        }
+
+    }
+
     clickTitle = (objectId) => {
         console.log(objectId)
         this.setState({
@@ -68,9 +108,10 @@ export default class ContentShow extends React.Component {
         ServerNetWorkUtils.getArticleByArticleId(objectId)
             .then(res => {
                 // console.log(res)
+                let result = marked(res.content);
                 this.setState({
-                    textareaValue: res.content,
-                    title:res.title,
+                    html_show: result,
+                    title: res.title,
                 })
             }).catch(error => {
                 console.log(error)
@@ -81,12 +122,14 @@ export default class ContentShow extends React.Component {
     }
 
     render() {
-        let result = marked(this.state.textareaValue);
+
+      
         return (
+
             <div className={styles.main}>
                 <div className={styles.left_main}>
                     {this.state.data_titles.map(data => {
-                     
+
                         return (
                             <div onClick={() => this.clickTitle(data.objectId)}
                                 className={styles.title_sy + " " + this.isSelectTitle(data.objectId)} key={data.objectId}>{data.title}</div>
@@ -97,9 +140,13 @@ export default class ContentShow extends React.Component {
                 <div className={styles.v_line} />
                 <div className={styles.right_main} >
                     <div className={styles.title}>{this.state.title}</div>
-                    <div dangerouslySetInnerHTML={{ __html: result }} />
+                    <div dangerouslySetInnerHTML={{ __html: this.state.html_show }} />
                 </div>
+
+ 
+
             </div >
         )
     }
 }
+
