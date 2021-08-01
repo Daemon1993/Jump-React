@@ -15,6 +15,37 @@ export default class ServerNetWorkUtils {
     }
 
 
+   static getAllTitlesArticles() {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Article);
+            types_sql.select("title","tags");
+          
+            types_sql.find().then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+    /**
+     * 获取limit限制文章
+     * @param {*} limit 
+     * @returns 
+     */
+    static getAllTitlesArticles(limit) {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Article);
+            types_sql.select("title","tags");
+            types_sql.limit(limit);
+            types_sql.find().then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
     /**
      * 获取文章通过id
      * @param {*} id 

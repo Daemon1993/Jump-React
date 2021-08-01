@@ -8,7 +8,7 @@ import showUnderLine4Comp from "../showUnderLine4Comp/showUnderLine4Comp";
 
 
 const Tech = showUnderLine4Comp(() => <Link to="/tech" className={styles.home_tab}>技术文章</Link>)
-const SelfU = showUnderLine4Comp(() => <Link to="/self_u" className={styles.home_tab}>一点杂谈</Link>)
+const SelfU = showUnderLine4Comp(() => <Link to="/self_u" className={styles.home_tab}>嘿嘿嘿</Link>)
 const Manage = showUnderLine4Comp(() => <Link to="/manage" target="_blank" className={styles.home_tab}>管理后台</Link>)
 
 

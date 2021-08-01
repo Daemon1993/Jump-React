@@ -12,6 +12,7 @@ import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
 
 import loadable from "@loadable/component";
 import UnderLineTab from "@/compoent_d/under_line_tab/UnderLineTab";
+import ArticleManage from "./article_manage/ArticleManage";
 
 const TypeManage = loadable(() => import('./type_manage/TypeManage'))
 const PushArticle = loadable(() => import('./push_article/PushArticle'))
@@ -61,7 +62,7 @@ export default class ManageHome extends React.Component {
     getRealCmp = () => {
 
         if (this.state.show_id === 1) {
-            return <TypeManage />
+            return <ArticleManage />
         }
         if (this.state.show_id === 2) {
             return <PushArticle callback_tab_select={this.clickItem} />

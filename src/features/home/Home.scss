@@ -1,24 +1,37 @@
 $main_bg_color: red;
-$main_pd: 10px;
+$main_pd: 1rem;
 
 .home_main {
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+ 
   padding: $main_pd;
-  align-items: center;
-  height: 100%;
-  .logo_{
-    margin-top: 5rem;
-    width: 18rem;
-    height: 18rem;
-    border-radius:50%;
-    
-  }
-  .msg{
-    margin-top: 2rem;
-    font-size: 1.2rem;
-    color: rgb(112, 116, 112);
-  }
   
+  height: 100%;
+  .logo_main {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 5vw;
+    .logo_ {
+      margin-top: 2rem;
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+    }
+    .msg {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: 616;
+      color: rgb(53, 54, 53);
+    }
+  }
+
+  .content {
+    flex: 1;
+    margin-left: 10vw;
+    padding: 1rem;
+  
+  }
 }

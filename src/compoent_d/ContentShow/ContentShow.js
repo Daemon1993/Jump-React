@@ -9,6 +9,7 @@ import 'highlight.js/styles/atom-one-dark.css';
 import './markdown10.scss';
 
 import { PreviewApi } from '@zzwing/react-image'
+import { PersistGate } from "redux-persist/integration/react";
 
 var marked = require('marked');
 marked.setOptions({
@@ -37,6 +38,7 @@ marked.setOptions({
     }
 });
 
+let image_show = false;
 export default class ContentShow extends React.Component {
 
     state = {
@@ -73,6 +75,9 @@ export default class ContentShow extends React.Component {
 
         // 判断是否点击的图片
         if (e.path[0].nodeName === 'IMG') {
+            if (image_show) {
+                return
+            }
             let params = {};
             params.param = {};
             // 获取imglist
@@ -92,10 +97,14 @@ export default class ContentShow extends React.Component {
             console.log(img_url);
             this.setState({
                 img_url: img_url,
-                visible: true,
             })
 
+            image_show = true;
             PreviewApi.preview(img_url)
+        } else {
+
+            image_show = false;
+
         }
 
     }
@@ -123,7 +132,7 @@ export default class ContentShow extends React.Component {
 
     render() {
 
-      
+
         return (
 
             <div className={styles.main}>
@@ -143,7 +152,7 @@ export default class ContentShow extends React.Component {
                     <div dangerouslySetInnerHTML={{ __html: this.state.html_show }} />
                 </div>
 
- 
+
 
             </div >
         )
