@@ -33,7 +33,10 @@ class BaseTab extends React.Component {
                         <SelfU select_state={pathname == '/self_u'} />
                         <Manage />
 
-                        <div className={styles.p_a_main}><a target="_blank" href="https://github.com/Daemon1993" className={styles.home_tab_a}>Github</a></div>
+                        <div className={styles.p_a_main}>
+                            <a target="_blank" href="https://github.com/Daemon1993" 
+                            className={styles.home_tab_a}>Github</a>
+                        </div>
 
                     </div>
                 </div>

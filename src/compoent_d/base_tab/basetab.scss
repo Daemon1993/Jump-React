@@ -5,13 +5,16 @@
 
   display: flex;
   flex-direction: column;
-
+  width: 100%;
+ 
   .content_main {
-    margin: 1rem;
-
+    
+    width: 100%;
+    box-sizing: border-box;
     flex-direction: row;
     display: flex;
     align-items: center;
+    padding: 1rem;
     justify-content: space-between;
 
     .title {
@@ -19,9 +22,10 @@
       cursor: pointer;
     }
     .home_tabs {
-      margin-right: 5vw;
+      
       display: flex;
       padding: 10px;
+      box-sizing: border-box;
  
       align-items: center;
       width: fit-content;
@@ -31,7 +35,6 @@
         font-weight: 525;
         overflow: hidden;
         white-space: nowrap;
-         
         text-overflow: ellipsis;
 
         text-decoration: none;

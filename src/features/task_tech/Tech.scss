@@ -1,0 +1,35 @@
+@import "../../compoent_d/base.scss";
+
+.main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+
+  .left_main {
+    height: 100%;
+    width: 20vw;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+    flex-direction: column;
+    .name {
+      font-weight: 600;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+    .title_select {
+        color: $base_color;
+      }
+  }
+  .right_main {
+    flex: 1;
+  }
+}
+
+.name:hover {
+    color: $base_color;
+  }
+  

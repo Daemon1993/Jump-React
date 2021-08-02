@@ -3,4 +3,15 @@
   flex-direction: column;
   
   height: 100%;
+  position: relative;
 }
+
+.top_main{
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  top: 0px;
+	z-index:9999;
+}
+
+ 

@@ -2,14 +2,14 @@ import ServerNetWorkUtils from "@/data_model/ServerNetWorkUtils";
 
 import React from "react";
 
-import styles from './ContentShow.scss';
+import styles from './ContentShow_Left.scss';
 
 import hljs from "highlight.js";
 import 'highlight.js/styles/atom-one-dark.css';
 import './markdown10.scss';
 
 import { PreviewApi } from '@zzwing/react-image'
-
+ 
 
 var marked = require('marked');
 marked.setOptions({
@@ -39,10 +39,10 @@ marked.setOptions({
 });
 
 let image_show = false;
-export default class ContentShow extends React.Component {
+export default class ContentShow_Left extends React.Component {
 
     state = {
- 
+        data_titles: [],
         html_show: "",
         select_title_id: '',
         img_url: '',
@@ -52,19 +52,20 @@ export default class ContentShow extends React.Component {
         document.body.removeEventListener('click', this.addClickImg)
     }
     componentDidMount() {
-       
-        console.log("ContentShow "+this.props.id)
-        ServerNetWorkUtils.getArticleByArticleId(this.props.id)
-        .then(res => {
-            // console.log(res)
-            let result = marked(res.content);
-            this.setState({
-                html_show: result,
-                title: res.title,
+        ServerNetWorkUtils.initBmob();
+        console.log("--this.props.type_id " + this.props.type_id)
+        ServerNetWorkUtils.getAllTitlesArticles(this.props.type_id)
+            .then(res => {
+                this.setState({
+                    data_titles: res
+                })
+
+                if (res.length > 0) {
+                    this.clickTitle(res[0].objectId)
+                }
+            }).catch(error => {
+                console.log(error)
             })
-        }).catch(error => {
-            console.log(error)
-        })
 
         document.body.addEventListener('click', this.addClickImg);
 
@@ -108,16 +109,52 @@ export default class ContentShow extends React.Component {
 
     }
 
-    
-     
+    clickTitle = (objectId) => {
+        console.log(objectId)
+        this.setState({
+            select_title_id: objectId
+        })
+        ServerNetWorkUtils.getArticleByArticleId(objectId)
+            .then(res => {
+                // console.log(res)
+                let result = marked(res.content);
+                this.setState({
+                    html_show: result,
+                    title: res.title,
+                })
+            }).catch(error => {
+                console.log(error)
+            })
+    }
+    isSelectTitle(objectId) {
+        return this.state.select_title_id == objectId ? styles.title_select : "";
+    }
 
     render() {
-        return (
-            <div className={styles.right_main} >
-                <div className={styles.title}>{this.state.title}</div>
-                <div dangerouslySetInnerHTML={{ __html: this.state.html_show }} />
-            </div>
 
+
+        return (
+
+            <div className={styles.main}>
+                <div className={styles.left_main}>
+                    {this.state.data_titles.map(data => {
+
+                        return (
+                            <div onClick={() => this.clickTitle(data.objectId)}
+                                className={styles.title_sy + " " + this.isSelectTitle(data.objectId)} key={data.objectId}>{data.title}</div>
+                        )
+                    })}
+                </div>
+
+                <div className={styles.v_line} />
+                <div className={styles.right_main} >
+                    <div className={styles.title}>{this.state.title}</div>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.html_show }} />
+                </div>
+
+
+
+            </div >
         )
     }
 }

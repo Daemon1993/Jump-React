@@ -3,6 +3,7 @@ import Bmob from "hydrogen-js-sdk";
 import CryptoJS from "crypto-js";
 const TB_Types = 'Types'
 const TB_Article = 'Article'
+const TB_Type_Item = 'Type_Item'
 
 export default class ServerNetWorkUtils {
 
@@ -14,6 +15,17 @@ export default class ServerNetWorkUtils {
         Bmob.initialize("c5bfe65ab37d31cd", reset_k1);
     }
 
+
+    static getAllTitlesTB_Type_Items() {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Type_Item);
+            types_sql.find().then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
 
    static getAllTitlesArticles() {
         return new Promise((resolve, reject) => {
@@ -38,6 +50,19 @@ export default class ServerNetWorkUtils {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.select("title","tags");
             types_sql.limit(limit);
+            types_sql.find().then(res => {
+                resolve(res)
+            }).catch(error => {
+                reject(error)
+            })
+        })
+    }
+
+    static getAllTitlesArticleItemId(type_item_id) {
+        return new Promise((resolve, reject) => {
+            const types_sql = Bmob.Query(TB_Article);
+            types_sql.equalTo("type_item_id", "==", type_item_id);
+            types_sql.select("title");
             types_sql.find().then(res => {
                 resolve(res)
             }).catch(error => {

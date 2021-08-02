@@ -3,18 +3,19 @@ import styles from './TimeShow.scss'
 
 import BaseUtils from '../../BaseUtils';
 import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 
 /**
  * 时间轴组件 list
  * @returns 
  */
-export default function TimeShow(props) {
+  function TimeShow(props) {
 
     // items->item{year,[{title,id}]}
 
     // console.log(Object.keys(props.items))
     if (BaseUtils.isEmpty(props.items)) {
-        return "暂无数据";
+        return <h1>暂无数据</h1>;
     }
  
 
@@ -44,7 +45,14 @@ export default function TimeShow(props) {
         </div>
 
     }
-
+    function clickItem(objectId){
+        // console.log(props)
+        props.history.push({
+            pathname:"/article_detail",
+            state:{objectId:objectId}
+        });
+       
+    }
    
     function TitleLists(datas) {
         const [select_id,setSelectId]= useState("");
@@ -55,7 +63,7 @@ export default function TimeShow(props) {
                         <div className={ styles.time_v_line_title}></div>
                         <div onMouseEnter={()=>setSelectId(data.objectId)} onMouseLeave={()=>setSelectId("")} className={styles.cirlce +" "+(select_id===data.objectId?styles.mouse_enter_bg_color:"")}></div>
                     </div>
-                    <div onMouseEnter={()=>setSelectId(data.objectId)} onMouseLeave={()=>setSelectId("")} 
+                    <div onClick={()=>{clickItem(data.objectId)}} onMouseEnter={()=>setSelectId(data.objectId)} onMouseLeave={()=>setSelectId("")} 
                     className={styles.title +" "+(select_id===data.objectId?styles.mouse_enter_color:"")}>
                         {data.title}
                         <div className={styles.h_line}></div>
@@ -65,3 +73,6 @@ export default function TimeShow(props) {
         })
     }
 }
+
+
+export default withRouter(TimeShow)
