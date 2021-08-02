@@ -113,6 +113,8 @@ export default class ContentShow extends React.Component {
 
     render() {
         return (
+
+            
             <div className={styles.right_main} >
                 <div className={styles.title}>{this.state.title}</div>
                 <div dangerouslySetInnerHTML={{ __html: this.state.html_show }} />

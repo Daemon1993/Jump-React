@@ -134,6 +134,7 @@ export default class PushArticle extends React.Component {
             title: this.state.title,
             tags: result.tags.join(","),
             type_id: result.type_id,
+            type_item_id: result.type_item_id,
             content: this.state.textareaValue
         }
         console.log(requestBody)

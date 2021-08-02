@@ -23,4 +23,10 @@ export default class BaseUtils {
         if (Object.prototype.isPrototypeOf(a) && Object.keys(a).length === 0 ) return true;  //检验空对象
         return false;
     }
+
+    static getM_D(time_str){
+        let date=new Date(time_str)
+
+        return (date.getMonth()+1)+"-"+date.getDate();
+    }
 }

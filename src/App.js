@@ -8,9 +8,7 @@ import routerMap from "@/routerMap";
 import BaseTab from './compoent_d/base_tab/BaseTab';
 import { useEffect,useRef, useState } from 'react';
 
-const content_css={
-  marginTop:'10px'
-}
+ 
 
 function App() {
 
@@ -32,7 +30,7 @@ function App() {
           <BaseTab />
         </div>
 
-        <div  style={{marginTop:content_m_t,height:"100%"}}>
+        <div className={styles.content_main} style={{paddingTop:content_m_t}}>
           <Switch>
             <FrontendAuth routerConfig={routerMap} />
           </Switch>

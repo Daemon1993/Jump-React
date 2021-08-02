@@ -2,13 +2,12 @@
 
 .main {
   box-sizing: border-box;
-
   display: flex;
   flex-direction: column;
   width: 100%;
- 
+  
+
   .content_main {
-    
     width: 100%;
     box-sizing: border-box;
     flex-direction: row;
@@ -20,15 +19,18 @@
     .title {
       margin-left: 1vw;
       cursor: pointer;
+      font-size: 2rem;
+      font-weight: 555;
     }
     .home_tabs {
-      
       display: flex;
       padding: 10px;
       box-sizing: border-box;
- 
+      flex: 1;
+    
+      justify-content: flex-end;
+      
       align-items: center;
-      width: fit-content;
 
       .home_tab {
         text-align: center;
@@ -36,17 +38,20 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-
+         
+        max-width: 10vw;
+        
         text-decoration: none;
         color: rgb(66, 66, 71);
       }
       .p_a_main {
         text-align: center;
         margin-left: 2rem;
+        box-sizing: border-box;
         height: 100%;
-     
+        max-width: 10vw;
         .home_tab_a {
-         font-weight: 616;
+          font-weight: 616;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;

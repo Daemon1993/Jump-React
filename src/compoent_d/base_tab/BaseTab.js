@@ -27,7 +27,7 @@ class BaseTab extends React.Component {
         return (
             <div className={styles.main}>
                 <div className={styles.content_main}>
-                    <div className={styles.title} onClick={this.go2Home}><h1>Daemon 的博客</h1></div>
+                    <div className={styles.title} onClick={this.go2Home}><span>Daemon 的博客</span></div>
                     <div className={styles.home_tabs}>
                         <Tech select_state={pathname == '/tech'} />
                         <SelfU select_state={pathname == '/self_u'} />

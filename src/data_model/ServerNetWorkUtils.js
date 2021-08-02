@@ -120,6 +120,7 @@ export default class ServerNetWorkUtils {
             types_sql.set("title", requestBody.title)
             types_sql.set("content", requestBody.content)
             types_sql.set("type_id", requestBody.type_id)
+            types_sql.set("type_item_id", requestBody.type_item_id)
             types_sql.set("tags", requestBody.tags)
             types_sql.save().then(res => {
                 resolve(res)

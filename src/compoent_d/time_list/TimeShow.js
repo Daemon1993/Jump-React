@@ -62,9 +62,14 @@ import { withRouter } from 'react-router-dom';
                         <div className={ styles.time_v_line_title}></div>
                         <div onMouseEnter={()=>setSelectId(data.objectId)} onMouseLeave={()=>setSelectId("")} className={styles.cirlce +" "+(select_id===data.objectId?styles.mouse_enter_bg_color:"")}></div>
                     </div>
+                    
                     <div onClick={()=>{clickItem(data.objectId)}} onMouseEnter={()=>setSelectId(data.objectId)} onMouseLeave={()=>setSelectId("")} 
                     className={styles.title +" "+(select_id===data.objectId?styles.mouse_enter_color:"")}>
-                        {data.title}
+                         <div className={styles.title_content}>
+                             <div className={styles.time}>{BaseUtils.getM_D(data.createdAt)}</div>
+                             <div className={styles.title1}>{data.title}</div>
+                         </div>
+
                         <div className={styles.h_line}></div>
                     </div>
                 </div>
