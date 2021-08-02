@@ -17,6 +17,7 @@ export default class ServerNetWorkUtils {
 
 
     static getAllTitlesTB_Type_Items() {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Type_Item);
             types_sql.find().then(res => {
@@ -28,6 +29,7 @@ export default class ServerNetWorkUtils {
     }
 
    static getAllTitlesArticles() {
+    this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.select("title","tags");
@@ -46,6 +48,7 @@ export default class ServerNetWorkUtils {
      * @returns 
      */
     static getAllTitlesArticles(limit) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.select("title","tags");
@@ -59,6 +62,7 @@ export default class ServerNetWorkUtils {
     }
 
     static getAllTitlesArticleItemId(type_item_id) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.equalTo("type_item_id", "==", type_item_id);
@@ -77,6 +81,7 @@ export default class ServerNetWorkUtils {
      * @returns 
      */
     static getArticleByArticleId(id) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.get(id).then(res => {
@@ -90,6 +95,7 @@ export default class ServerNetWorkUtils {
      * 获取所有文章
      */
     static getAllTitlesArticles(type_id) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.equalTo("type_id", "==", type_id);
@@ -108,6 +114,7 @@ export default class ServerNetWorkUtils {
      * @returns 
      */
     static pushArticle(requestBody) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Article);
             types_sql.set("title", requestBody.title)
@@ -128,6 +135,7 @@ export default class ServerNetWorkUtils {
      * @returns 
      */
     static addTypeDir(name) {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Types);
             types_sql.set("name", name)
@@ -144,6 +152,7 @@ export default class ServerNetWorkUtils {
      * @returns 
      */
     static getTypesData() {
+        this.initBmob()
         return new Promise((resolve, reject) => {
             const types_sql = Bmob.Query(TB_Types);
             types_sql.find().then(res => {

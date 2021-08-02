@@ -48,8 +48,7 @@ import { withRouter } from 'react-router-dom';
     function clickItem(objectId){
         // console.log(props)
         props.history.push({
-            pathname:"/article_detail",
-            state:{objectId:objectId}
+            pathname:"/article_detail/"+objectId,
         });
        
     }
