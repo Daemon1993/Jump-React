@@ -62,6 +62,9 @@ export default class ContentShow extends React.Component {
                 html_show: result,
                 title: res.title,
             })
+
+            this.props.tagsCallback(res.tags)
+
         }).catch(error => {
             console.log(error)
         })

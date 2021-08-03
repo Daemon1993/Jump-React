@@ -6,7 +6,7 @@ $main_pd: 1rem;
   display: flex;
  
   padding: $main_pd;
-  
+  overflow:auto;
   height: 100%;
   .logo_main {
     box-sizing: border-box;

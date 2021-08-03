@@ -29,4 +29,16 @@ export default class BaseUtils {
 
         return (date.getMonth()+1)+"-"+date.getDate();
     }
+
+    static getRandomColor(){
+        var colorStr="";
+        //字串的每一字元的範圍
+        var randomArr=['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
+        //產生一個六位的字串
+        for(var i=0;i<6;i++){
+          //15是範圍上限，0是範圍下限，兩個函式保證產生出來的隨機數是整數
+          colorStr+=randomArr[Math.ceil(Math.random()*(15-0)+0)];
+        }
+        return colorStr;
+    }
 }
